@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1004561010857",
+    "project_id": "seimeisocialapp",
+    "storage_bucket": "seimeisocialapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004561010857:android:eb71b27b056bd6d7ccd9b8",
+        "android_client_info": {
+          "package_name": "com.example.seimei_social_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRDew6if3tk7bgIjwhZDOs7HE67gOzf60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
