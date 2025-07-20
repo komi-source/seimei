@@ -15,17 +15,13 @@ class WallPage extends StatefulWidget {
 
 class _WallPageState extends State<WallPage> {
   final currentUser = FirebaseAuth.instance.currentUser!;
-
-  //text controller
   final textController = TextEditingController();
 
-  //post message
   void postMessage() {
-    if (textController.text.isNotEmpty) {
-      //store in firebase
+    if (textController.text.trim().isNotEmpty) {
       FirebaseFirestore.instance.collection("User posts").add({
         'UserEmail': currentUser.email,
-        'Message': textController.text,
+        'Message': textController.text.trim(),
         'TimeStamp': Timestamp.now(),
         'Likes': [],
       });
@@ -36,78 +32,86 @@ class _WallPageState extends State<WallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(title: Text("Wall")),
+      backgroundColor: Color(0xFFD7CCAE),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFC0AF99),
+        title: const Text("Wall"),
+      ),
+      body: Column(
+        children: [
+          // посты
+          Expanded(
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("User posts")
+                  .orderBy("TimeStamp", descending: false)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Center(child: Text("Error loading posts"));
+                }
 
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection("User posts")
-                    .orderBy("TimeStamp", descending: false)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        //get the message
-                        final post = snapshot.data!.docs[index];
-                        return WallPost(
-                          message: post['Message'],
-                          user: post['UserEmail'],
-                          postId: post.id,
-                          likes: List<String>.from(post['Likes'] ?? []),
-                          time: FormatDate(post['TimeStamp']),
-                        );
-                      },
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text("Error"));
-                  }
+                if (!snapshot.hasData) {
                   return Center(
                     child: LoadingAnimationWidget.twistingDots(
-                      leftDotColor: Colors.deepPurple,
-                      rightDotColor: Colors.pinkAccent,
+                      leftDotColor: Color(0xFFB57873), // насыщенный, уютный
+                      rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
                       size: 60,
                     ),
                   );
-                },
-              ),
-            ),
-            //the wall
+                }
 
-            //post message
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: MyTextField(
-                      hintText: "Insert your idea..",
-                      obscuretext: false,
-                      controller: textController,
-                    ),
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    final post = snapshot.data!.docs[index];
+                    return WallPost(
+                      message: post['Message'],
+                      user: post['UserEmail'],
+                      postId: post.id,
+                      likes: List<String>.from(post['Likes'] ?? []),
+                      time: FormatDate(post['TimeStamp']),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+
+          // форма ввода и кнопка
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+            child: Row(
+              children: [
+                // поле ввода
+                Expanded(
+                  child: MyTextField(
+                    hintText: "Insert your idea..",
+                    obscuretext: false,
+                    controller: textController,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 10),
+                // кнопка отправки справа
+                IconButton(
+                  onPressed: postMessage,
+                  icon: Icon(Icons.arrow_circle_up, color: Color(0xFFB57873)),
+                  color: Theme.of(context).colorScheme.primary,
+                  iconSize: 32,
+                ),
+              ],
             ),
+          ),
 
-            //post button
-            IconButton(
-              onPressed: postMessage,
-              icon: Icon(Icons.arrow_circle_up),
+          // логин
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Text(
+              "Logged in as: ${currentUser.email}",
+              style: const TextStyle(color: Color(0xFFB57873)),
             ),
-
-            //logged in as
-            Text(
-              "Logged in as: " + currentUser.email!,
-              style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

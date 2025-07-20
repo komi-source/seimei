@@ -15,7 +15,11 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile")),
+      backgroundColor: Color(0xFFD7CCAE),
+      appBar: AppBar(
+        backgroundColor: Color(0xFFC0AF99),
+        title: Text("Profile"),
+      ),
       body: ListView(
         children: [
           //profile pic
@@ -26,11 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
           Text(
             currentUser.email!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: Colors.black, fontSize: 20),
           ),
 
           //user details
-
 
           //username
 

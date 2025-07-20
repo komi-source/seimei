@@ -15,7 +15,7 @@ class Comments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Color(0xFFD7CCAE),
         borderRadius: BorderRadius.circular(4),
       ),
       margin: EdgeInsets.only(bottom: 5),
@@ -29,9 +29,27 @@ class Comments extends StatelessWidget {
           //user, time
           Row(
             children: [
-              Text(user, style: TextStyle(color: Colors.grey, fontSize: 10)),
-              Text(".", style: TextStyle(color: Colors.grey, fontSize: 10)),
-              Text(time, style: TextStyle(color: Colors.grey, fontSize: 10)),
+              Text(
+                user,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 36, 36, 36),
+                  fontSize: 10,
+                ),
+              ),
+              Text(
+                "•",
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 36, 36, 36),
+                  fontSize: 10,
+                ),
+              ),
+              Text(
+                time,
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 36, 36, 36),
+                  fontSize: 10,
+                ),
+              ),
             ],
           ),
         ],

@@ -9,85 +9,75 @@ import 'package:seimei_social_app/services/chat/chat_services.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  //chat and auth service
+  // chat and auth service
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
-  void logout() {
-    final auth = AuthService();
-    auth.signOut();
-  }
+  void logout() => _authService.signOut();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xFFD7CCAE),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
+        backgroundColor: Color(0xFFCFB4AB),
         elevation: 0,
-        title: Text("SEMEI Users"),
+        title: const Text("SEMEI Users"),
       ),
       drawer: MyDrawer(),
-      body: _buildUserList(),
+      body: _buildUserList(context),
     );
   }
 
-  //buuild a list of users exept for the current logged in user
-  Widget _buildUserList() {
+  Widget _buildUserList(BuildContext context) {
     return StreamBuilder(
       stream: _chatService.getUsersStream(),
       builder: (context, snapshot) {
-        //error
         if (snapshot.hasError) {
-          return const Text("Error");
+          return const Center(child: Text("Ошибка загрузки пользователей"));
         }
 
-        //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: LoadingAnimationWidget.twistingDots(
-                    leftDotColor: Colors.deepPurple,
-                    rightDotColor: Colors.pinkAccent,
-                    size: 60,
-                  ),
-                );
+          return Center(
+            child: LoadingAnimationWidget.twistingDots(
+              leftDotColor: Color(0xFFB57873), // насыщенный, уютный
+              rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
+              size: 60,
+            ),
+          );
         }
 
-        //return list view
+        // полученные данные
+        final List users = snapshot.data ?? [];
+
+        // отображение списка
         return ListView(
-          children: snapshot.data!
-              .map<Widget>((userData) => _buildUserListItem(userData, context))
-              .toList(),
+          children: users.map<Widget>((userData) {
+            if (userData is Map<String, dynamic>) {
+              final email = userData["email"];
+              final uid = userData["uid"];
+
+              if (email != null &&
+                  uid != null &&
+                  email != _authService.getCurrentUser()?.email) {
+                return UserTile(
+                  text: email,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ChatPage(recieverEmail: email, receiverID: uid),
+                      ),
+                    );
+                  },
+                );
+              }
+            }
+            return const SizedBox.shrink(); // если данные некорректны
+          }).toList(),
         );
       },
     );
-  }
-
-  //build ind list title for user
-  Widget _buildUserListItem(
-    Map<String, dynamic> userData,
-    BuildContext context,
-  ) {
-    //display all users exept current user
-    if (userData["email"] != _authService.getCurrentUser()!.email) {
-      return UserTile(
-        text: userData["email"],
-        onTap: () {
-          //tapped on a user -> go to chat page
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatPage(
-                recieverEmail: userData["email"],
-                receiverID: userData["uid"],
-              ),
-            ),
-          );
-        },
-      );
-    } else {
-      return Container();
-    }
   }
 }

@@ -8,10 +8,9 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xFFD7CCAE),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
+        backgroundColor: Color(0xFFC0AF99),
         elevation: 0,
         title: Text("Settings"),
       ),
@@ -35,8 +34,10 @@ class SettingsPage extends StatelessWidget {
                 context,
                 listen: false,
               ).isDarkMode,
-              onChanged: (value) =>
-                  Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
+              onChanged: (value) => Provider.of<ThemeProvider>(
+                context,
+                listen: false,
+              ).toggleTheme(),
             ),
           ],
         ),

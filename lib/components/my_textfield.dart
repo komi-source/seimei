@@ -29,14 +29,12 @@ class MyTextField extends StatelessWidget {
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            borderSide: BorderSide(color: Color(0xFFCFB4AB)),
           ),
-          fillColor: Theme.of(context).colorScheme.secondary,
+          fillColor: Color(0xFFCFB4AB),
           filled: true,
           hintText: hintText,
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+          hintStyle: TextStyle(color: Colors.white),
         ),
       ),
     );

@@ -49,12 +49,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xFFD7CCAE),
       body: Center(
         child: isLoading
             ? LoadingAnimationWidget.twistingDots(
-                leftDotColor: Colors.deepPurple,
-                rightDotColor: Colors.pinkAccent,
+                leftDotColor: Color(0xFFB57873), // тёплый акцентный
+                rightDotColor: Color(0xFFCFB4AB), // пастельный нюанс
                 size: 60,
               )
             : buildLoginForm(),
@@ -66,18 +66,11 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.message,
-          size: 60,
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        Icon(Icons.message, size: 60, color: Colors.black),
         const SizedBox(height: 50),
         Text(
           "Welcome back, you've been missed!",
-          style: TextStyle(
-            fontSize: 20,
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          style: TextStyle(fontSize: 20, color: Color(0xFFB57873)),
         ),
         const SizedBox(height: 25),
         MyTextField(
@@ -97,17 +90,14 @@ class _LoginPageState extends State<LoginPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Not a member? ",
-              style: TextStyle(color: Theme.of(context).colorScheme.primary),
-            ),
+            Text("Not a member? ", style: TextStyle(color: Color(0xFFB57873))),
             GestureDetector(
               onTap: widget.onTap,
               child: Text(
                 "Register now",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Color(0xFFB57873),
                 ),
               ),
             ),

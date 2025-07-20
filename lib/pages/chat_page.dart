@@ -84,12 +84,13 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color(0xFFD7CCAE),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
-        elevation: 0,
-        title: Text(widget.recieverEmail),
+        backgroundColor: Color(0xFFC0AF99),
+        title: Text(
+          widget.recieverEmail,
+          style: TextStyle(color: const Color.fromARGB(255, 216, 216, 216)),
+        ),
       ),
       body: Column(
         children: [
@@ -118,8 +119,8 @@ class _ChatPageState extends State<ChatPage> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: LoadingAnimationWidget.twistingDots(
-              leftDotColor: Colors.deepPurple,
-              rightDotColor: Colors.pinkAccent,
+              leftDotColor: Color(0xFFB57873), // насыщенный, уютный
+              rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
               size: 60,
             ),
           );
@@ -155,7 +156,7 @@ class _ChatPageState extends State<ChatPage> {
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
-          ChatBuble(message: data["message"], isCurrentUser: isCurrentUser),
+          ChatBubble(message: data["message"], isCurrentUser: isCurrentUser),
         ],
       ),
     );
@@ -180,7 +181,7 @@ class _ChatPageState extends State<ChatPage> {
           //send button
           Container(
             decoration: BoxDecoration(
-              color: Colors.pink,
+              color: Color(0xFFB57873),
               shape: BoxShape.circle,
             ),
             margin: EdgeInsets.only(right: 25),
