@@ -15,7 +15,7 @@ class Comments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 220, 217, 217),
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(4),
       ),
       margin: EdgeInsets.only(bottom: 5),
@@ -24,7 +24,7 @@ class Comments extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //comment
-          Text(text, style: TextStyle(fontSize: 16),),
+          Text(text, style: TextStyle(fontSize: 16)),
           SizedBox(height: 5),
           //user, time
           Row(

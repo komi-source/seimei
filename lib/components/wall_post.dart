@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:seimei_social_app/components/comment_button.dart';
 import 'package:seimei_social_app/components/comments.dart';
+import 'package:seimei_social_app/components/delete_button.dart';
 import 'package:seimei_social_app/components/like_button.dart';
 import 'package:seimei_social_app/helper/helper_methods.dart';
 
@@ -87,26 +88,59 @@ class _WallPostState extends State<WallPost> {
         actions: [
           TextButton(
             onPressed: () {
-              //pop box
               Navigator.pop(context);
-
-              //clear controller
               _commentTextController.clear();
             },
             child: Text("Cancel"),
           ),
           TextButton(
             onPressed: () {
-              //add comment
               addComment(_commentTextController.text);
-
-              //pop
-              Navigator.pop(context);
-
-              //clear comm
               _commentTextController.clear();
             },
             child: Text("Post"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void deletePost() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Delete post"),
+        content: Text("Are you sure you want to delete this post?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () async {
+              final commentDocs = await FirebaseFirestore.instance
+                  .collection("User posts")
+                  .doc(widget.postId)
+                  .collection("Comments")
+                  .get();
+
+              for (var doc in commentDocs.docs) {
+                await FirebaseFirestore.instance
+                    .collection("User posts")
+                    .doc(widget.postId)
+                    .collection("Comments")
+                    .doc(doc.id)
+                    .delete();
+              }
+
+              FirebaseFirestore.instance
+                  .collection("User posts")
+                  .doc(widget.postId)
+                  .delete();
+
+              Navigator.pop(context);
+            },
+            child: Text("Delete"),
           ),
         ],
       ),
@@ -120,34 +154,44 @@ class _WallPostState extends State<WallPost> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
       ),
-      margin: EdgeInsets.only(top: 25, left: 25, right: 25),
+      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
       padding: EdgeInsets.all(25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //wallpost
-          Column(
+          // Top Row: message and delete
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //message
-              Text(
-                widget.message,
-                style: TextStyle(fontWeight: FontWeight.bold),
+              // Expanded text
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.message,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(widget.user, style: TextStyle(color: Colors.grey)),
+                        Text(" • ", style: TextStyle(color: Colors.grey)),
+                        Text(widget.time, style: TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 20),
-              //user
-              Row(
-                children: [
-                  Text(widget.user, style: TextStyle(color: Colors.grey)),
-                  Text(" ", style: TextStyle(color: Colors.grey)),
-                  Text(widget.time, style: TextStyle(color: Colors.grey)),
-                ],
-              ),
+              if (widget.user == currentUser.email)
+                DeleteButton(onTap: deletePost),
             ],
           ),
           SizedBox(height: 20),
 
-          //comments under the post
+          // Comments section
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("User posts")
@@ -166,24 +210,26 @@ class _WallPostState extends State<WallPost> {
                 );
               }
 
-              return ListView(
+              final docs = snapshot.data!.docs;
+              return ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                children: snapshot.data!.docs.map((doc) {
-                  //get the comm
-                  final commentData = doc.data() as Map<String, dynamic>;
-
-                  //return the comm
+                itemCount: docs.length,
+                itemBuilder: (context, index) {
+                  final commentData =
+                      docs[index].data() as Map<String, dynamic>;
                   return Comments(
                     text: commentData["CommentText"],
                     user: commentData["CommentedBy"],
                     time: FormatDate(commentData["CommentTime"]),
                   );
-                }).toList(),
+                },
               );
             },
           ),
-          SizedBox(height: 15),
+          SizedBox(height: 20),
+
+          // Buttons Row
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -202,10 +248,9 @@ class _WallPostState extends State<WallPost> {
                 children: [
                   CommentButton(onTap: showCommentDialog),
                   SizedBox(height: 5),
-                  Text('0', style: TextStyle(color: Colors.grey)),
+                  Text("Comment", style: TextStyle(color: Colors.grey)),
                 ],
               ),
-              SizedBox(width: 10, height: 10),
             ],
           ),
         ],
