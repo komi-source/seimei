@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:seimei_social_app/components/chat_buble.dart';
 import 'package:seimei_social_app/components/my_textfield.dart';
 import 'package:seimei_social_app/services/auth/auth_service.dart';
@@ -115,7 +116,13 @@ class _ChatPageState extends State<ChatPage> {
 
         //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading..");
+          return Center(
+            child: LoadingAnimationWidget.twistingDots(
+              leftDotColor: Colors.deepPurple,
+              rightDotColor: Colors.pinkAccent,
+              size: 60,
+            ),
+          );
         }
 
         //return list

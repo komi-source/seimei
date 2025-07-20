@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:seimei_social_app/pages/profile_page.dart';
+import 'package:seimei_social_app/pages/wall_page.dart';
 import 'package:seimei_social_app/services/auth/auth_service.dart';
 import 'package:seimei_social_app/pages/settings_page.dart';
 
@@ -42,6 +44,23 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: Text("PROFILE"),
+                  leading: Icon(Icons.person),
+                  onTap: () {
+                    //pop the drawer
+                    Navigator.pop(context);
+
+                    //navigate to settings page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    );
+                  },
+                ),
+              ),
 
               //settings list
               Padding(
@@ -62,6 +81,23 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
 
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: Text("WALL"),
+                  leading: Icon(Icons.note),
+                  onTap: () {
+                    //pop the drawer
+                    Navigator.pop(context);
+
+                    //navigate to settings page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WallPage()),
+                    );
+                  },
+                ),
+              ),
               //logout
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),

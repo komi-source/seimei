@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:seimei_social_app/components/my_drawer.dart';
 import 'package:seimei_social_app/components/user_tile.dart';
 import 'package:seimei_social_app/pages/chat_page.dart';
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey,
         elevation: 0,
-        title: Text("Home"),
+        title: Text("SEMEI Users"),
       ),
       drawer: MyDrawer(),
       body: _buildUserList(),
@@ -44,7 +45,13 @@ class HomePage extends StatelessWidget {
 
         //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading..");
+                return Center(
+                  child: LoadingAnimationWidget.twistingDots(
+                    leftDotColor: Colors.deepPurple,
+                    rightDotColor: Colors.pinkAccent,
+                    size: 60,
+                  ),
+                );
         }
 
         //return list view
