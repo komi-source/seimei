@@ -29,9 +29,7 @@ class ChatBubble extends StatelessWidget {
                   14,
                   49,
                 ) // сообщение пользователя в тёмной теме
-              : const Color(
-                  0xFFB57873,
-                )) // сообщение пользователя в светлой теме
+              : Color.fromARGB(255, 103, 32, 23)) // сообщение пользователя в светлой теме
         : (isDarkMode
               ? const Color.fromARGB(
                   255,
@@ -39,12 +37,15 @@ class ChatBubble extends StatelessWidget {
                   77,
                   87,
                 ) // сообщение собеседника в тёмной теме
-              : const Color(
-                  0xFFB2BABC,
+              : Color.fromARGB(
+                  255,
+                  17,
+                  17,
+                  43,
                 )); // сообщение собеседника в светлой теме
 
     // Цвет текста
-    final Color textColor = isDarkMode ? Colors.white : Colors.black87;
+    final Color textColor = isDarkMode ? Colors.white : Color(0xFFBFAF8F);
 
     return Container(
       decoration: BoxDecoration(

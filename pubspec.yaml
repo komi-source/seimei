@@ -50,7 +50,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/logo.png"
+  image_path: "assets/app_logo.png"
 
   
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -74,6 +74,10 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    # - assets/left_up.png
+    # - assets/right_up.png
+    # - assets/left_down.png
+    # - assets/right_down.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

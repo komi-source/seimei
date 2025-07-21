@@ -7,7 +7,6 @@ class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
   void logout() {
-    //get auth service
     final auth = AuthService();
     auth.signOut();
   }
@@ -15,87 +14,62 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color(0xFFC0AF99),
-      child: Column(
+      backgroundColor: const Color.fromARGB(255, 17, 17, 43),
+      child: Stack(
         children: [
+          // 🌊 Картинка внизу
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/wave2.png', 
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+
+          // 📋 Контент меню
           Column(
             children: [
-              //logo
               DrawerHeader(
-                child: Center(child: Image.asset('assets/logo.png')),
+                child: Center(child: Image.asset('assets/logo_sun.png')),
               ),
-
-              //home list
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: Text("HOME"),
-                  leading: Icon(Icons.home),
+                  title: const Text("HOME", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  leading: const Icon(Icons.home, color: Color(0xFFBFAF8F)),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("PROFILE", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  leading: const Icon(Icons.person, color: Color(0xFFBFAF8F)),
                   onTap: () {
-                    //pop the drawer
                     Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => ProfilePage()));
                   },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: Text("PROFILE"),
-                  leading: Icon(Icons.person),
+                  title: const Text("WALL", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  leading: const Icon(Icons.note, color: Color(0xFFBFAF8F)),
                   onTap: () {
-                    //pop the drawer
                     Navigator.pop(context);
-
-                    //navigate to settings page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => WallPage()));
                   },
                 ),
               ),
-
-              //settings list
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 25.0),
-              //   child: ListTile(
-              //     title: Text("SETTINGS"),
-              //     leading: Icon(Icons.settings),
-              //     onTap: () {
-              //       //pop the drawer
-              //       Navigator.pop(context);
-
-              //       //navigate to settings page
-              //       Navigator.push(
-              //         context,
-              //         MaterialPageRoute(builder: (context) => SettingsPage()),
-              //       );
-              //     },
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: Text("WALL"),
-                  leading: Icon(Icons.note),
-                  onTap: () {
-                    //pop the drawer
-                    Navigator.pop(context);
-
-                    //navigate to settings page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => WallPage()),
-                    );
-                  },
-                ),
-              ),
-              //logout
-              Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: ListTile(
-                  title: Text("LOGOUT"),
-                  leading: Icon(Icons.logout),
+                  title: const Text("LOGOUT", style: TextStyle(color: Color(0xFFE94B35))),
+                  leading: const Icon(Icons.logout, color: Color(0xFFE94B35)),
                   onTap: logout,
                 ),
               ),

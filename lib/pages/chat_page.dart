@@ -17,33 +17,23 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  //text controller
   final TextEditingController _messageController = TextEditingController();
-
-  //chat and auth services
   final ChatService _chatService = ChatService();
-
   final AuthService _authService = AuthService();
-
-  //for textf focus
-  FocusNode myFocusNode = FocusNode();
+  final FocusNode myFocusNode = FocusNode();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    //add listener to focus node
     myFocusNode.addListener(() {
       if (myFocusNode.hasFocus) {
-        //cause a delay so that keyboard has time to show up
-        //then the amount pf remaining space will be calculated
-        //then scroll down
         Future.delayed(const Duration(milliseconds: 500), () => scrollDown());
       }
     });
 
-    //wait a bit for listview to be built, then scroll to bottom
-    Future.delayed(Duration(milliseconds: 500), () => scrollDown());
+    Future.delayed(const Duration(milliseconds: 500), () => scrollDown());
   }
 
   @override
@@ -53,30 +43,24 @@ class _ChatPageState extends State<ChatPage> {
     super.dispose();
   }
 
-  //scroll controller
-  final ScrollController _scrollController = ScrollController();
-
   void scrollDown() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.fastOutSlowIn,
-    );
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
   }
 
-  //send message
   void sendMessage() async {
-    //if there is smth inside the textfield
     if (_messageController.text.isNotEmpty) {
-      //send the message
       await _chatService.sendMessage(
         widget.receiverID,
         _messageController.text,
       );
 
-      //clear text controller
       _messageController.clear();
-
       scrollDown();
     }
   }
@@ -84,51 +68,65 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD7CCAE),
+      backgroundColor: const Color(0xFF1A1A4A),
       appBar: AppBar(
-        backgroundColor: Color(0xFFC0AF99),
+        backgroundColor: const Color.fromARGB(255, 17, 17, 43),
         title: Text(
           widget.recieverEmail,
-          style: TextStyle(color: const Color.fromARGB(255, 216, 216, 216)),
+          style: const TextStyle(color: Color(0xFFBFAF8F)),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: [
-          //display all messages
-          Expanded(child: _buildMessageList()),
+          // 🌊 Фоновое изображение снизу
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/wave2.png',
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
 
-          //user input
-          _buildUserInput(),
+          // 📋 Контент чата поверх фона
+          Column(
+            children: [
+              Expanded(child: _buildMessageList()),
+              _buildUserInput(),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  //build message list
   Widget _buildMessageList() {
     String senderID = _authService.getCurrentUser()!.uid;
+
     return StreamBuilder(
       stream: _chatService.getMessages(widget.receiverID, senderID),
       builder: (context, snapshot) {
-        //errors
         if (snapshot.hasError) {
-          return Text("Error");
+          return const Center(
+            child: Text("Error", style: TextStyle(color: Colors.white)),
+          );
         }
 
-        //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: LoadingAnimationWidget.twistingDots(
-              leftDotColor: Color(0xFFB57873), // насыщенный, уютный
-              rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
+              leftDotColor: const Color(0xFFE94B35),
+              rightDotColor: const Color(0xFFBFAF8F),
               size: 60,
             ),
           );
         }
 
-        //return list
         return ListView(
           controller: _scrollController,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           children: snapshot.data!.docs
               .map((doc) => _buildMessageItem(doc))
               .toList(),
@@ -137,15 +135,10 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  //build message item
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-    //is current user
     bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
-
-    //align message to the right if sender is the current user, otherwise left
-    var alignment = isCurrentUser
+    Alignment alignment = isCurrentUser
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
@@ -162,33 +155,28 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  //build message input
   Widget _buildUserInput() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50.0),
+      padding: const EdgeInsets.only(bottom: 50.0, left: 12.0, right: 12.0),
       child: Row(
         children: [
-          //textfield should take up most of the space
           Expanded(
             child: MyTextField(
               controller: _messageController,
-              hintText: "Type a message",
+              hintText: "Type a message..",
               obscuretext: false,
               focusNode: myFocusNode,
             ),
           ),
-
-          //send button
+          const SizedBox(width: 10),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xFFB57873),
+            decoration: const BoxDecoration(
+              color: Color(0xFFE94B35),
               shape: BoxShape.circle,
             ),
-            margin: EdgeInsets.only(right: 25),
             child: IconButton(
               onPressed: sendMessage,
-              icon: Icon(Icons.send),
-              color: Colors.white,
+              icon: const Icon(Icons.send, color: Color(0xFFBFAF8F)),
             ),
           ),
         ],

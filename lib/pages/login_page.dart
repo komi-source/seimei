@@ -49,12 +49,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD7CCAE),
+      backgroundColor: Color(0xFF1A1A4A),
       body: Center(
         child: isLoading
             ? LoadingAnimationWidget.twistingDots(
-                leftDotColor: Color(0xFFB57873), // тёплый акцентный
-                rightDotColor: Color(0xFFCFB4AB), // пастельный нюанс
+                leftDotColor: Color(0xFFE94B35),
+                rightDotColor: Color(0xFFBFAF8F), // пастельный нюанс
                 size: 60,
               )
             : buildLoginForm(),
@@ -63,45 +63,91 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget buildLoginForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Stack(
       children: [
-        Icon(Icons.message, size: 60, color: Colors.black),
-        const SizedBox(height: 50),
-        Text(
-          "Welcome back, you've been missed!",
-          style: TextStyle(fontSize: 20, color: Color(0xFFB57873)),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Image.asset(
+            'assets/wave.png',
+            fit: BoxFit.fitWidth,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.bottomCenter,
+          ),
         ),
-        const SizedBox(height: 25),
-        MyTextField(
-          hintText: "example@gmail.com",
-          obscuretext: false,
-          controller: _emailController,
+
+        // 🌫️ Полупрозрачный слой (опционально, для читаемости)
+        Positioned.fill(
+          child: Container(
+            color: Colors.black.withOpacity(0.3), // затемнение по желанию
+          ),
         ),
-        const SizedBox(height: 10),
-        MyTextField(
-          hintText: "Password..",
-          obscuretext: true,
-          controller: _pwController,
-        ),
-        const SizedBox(height: 25),
-        MyButton(text: "Login", onTap: login),
-        const SizedBox(height: 25),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Not a member? ", style: TextStyle(color: Color(0xFFB57873))),
-            GestureDetector(
-              onTap: widget.onTap,
-              child: Text(
-                "Register now",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFB57873),
+
+        // 📋 Контент логина поверх фона
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/logo_sun.png', width: 250, height: 250),
+                const SizedBox(height: 50),
+                Text(
+                  "Welcome back, you've been missed!",
+                  style: TextStyle(fontSize: 20, color: Color(0xFFD3C9A1)),
                 ),
-              ),
+                const SizedBox(height: 25),
+                MyTextField(
+                  hintText: "example@gmail.com",
+                  obscuretext: false,
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  hintText: "Password..",
+                  obscuretext: true,
+                  controller: _pwController,
+                ),
+                const SizedBox(height: 25),
+                MyButton(text: "Login", onTap: login),
+                const SizedBox(height: 25),
+                Container(
+                  width: 200,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1A1A4A),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color(
+                        0xFFBFAF8F,
+                      ), // твой красноватый акцентный цвет
+                      width: 1.0, // ширина границы
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: widget.onTap,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Not a member? ",
+                          style: TextStyle(color: Color(0xFFD3C9A1)),
+                        ),
+
+                        Text(
+                          "Register now",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFD3C9A1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ],
     );

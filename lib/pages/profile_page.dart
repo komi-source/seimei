@@ -15,22 +15,22 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD7CCAE),
+      backgroundColor: Color(0xFF1A1A4A),
       appBar: AppBar(
-        backgroundColor: Color(0xFFC0AF99),
-        title: Text("Profile"),
+        backgroundColor: Color.fromARGB(255, 17, 17, 43),
+        title: Text("Profile", style: TextStyle(color: Color(0xFFD3C9A1))),
       ),
       body: ListView(
         children: [
           //profile pic
           SizedBox(height: 50),
-          Icon(Icons.person, size: 72),
+          Icon(Icons.person, size: 72, color: Color(0xFFD3C9A1)),
 
           //email name
           Text(
             currentUser.email!,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black, fontSize: 20),
+            style: TextStyle(color: Color(0xFFD3C9A1), fontSize: 20),
           ),
 
           //user details

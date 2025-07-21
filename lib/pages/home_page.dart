@@ -9,7 +9,6 @@ import 'package:SEIMEI/services/chat/chat_services.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  // chat and auth service
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
 
@@ -18,14 +17,36 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD7CCAE),
+      backgroundColor: Color(0xFF1A1A4A),
       appBar: AppBar(
-        backgroundColor: Color(0xFFCFB4AB),
+        backgroundColor: Color.fromARGB(255, 17, 17, 43),
         elevation: 0,
-        title: const Text("SEMEI Users"),
+        title: const Text(
+          "SEIMEI Users",
+          style: TextStyle(color: Color(0xFFBFAF8F)),
+        ),
       ),
       drawer: MyDrawer(),
-      body: _buildUserList(context),
+
+      // 🎨 Слой с фоном + списком
+      body: Stack(
+        children: [
+          // 🌊 Волна внизу экрана
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/wave.png',
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width,
+            ),
+          ),
+
+          // 📋 Список пользователей
+          _buildUserList(context),
+        ],
+      ),
     );
   }
 
@@ -34,24 +55,30 @@ class HomePage extends StatelessWidget {
       stream: _chatService.getUsersStream(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text("Ошибка загрузки пользователей"));
+          return const Center(
+            child: Text(
+              "Ошибка загрузки пользователей",
+              style: TextStyle(color: Colors.white),
+            ),
+          );
         }
 
+        // 🔧 Показываем анимацию, пока идет загрузка
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: LoadingAnimationWidget.twistingDots(
-              leftDotColor: Color(0xFFB57873), // насыщенный, уютный
-              rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
+              leftDotColor: Color(0xFFE94B35),
+              rightDotColor: Color(0xFFBFAF8F),
               size: 60,
             ),
           );
         }
 
-        // полученные данные
+        // 📋 Когда пользователи загружены, строим список
         final List users = snapshot.data ?? [];
 
-        // отображение списка
         return ListView(
+          padding: EdgeInsets.symmetric(vertical: 12),
           children: users.map<Widget>((userData) {
             if (userData is Map<String, dynamic>) {
               final email = userData["email"];

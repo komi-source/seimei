@@ -70,12 +70,12 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD7CCAE),
+      backgroundColor: Color(0xFF1A1A4A),
       body: Center(
         child: isLoading
             ? LoadingAnimationWidget.twistingDots(
-                leftDotColor: Color(0xFFB57873), // тёплый акцентный
-                rightDotColor: Color(0xFFCFB4AB), // пастельный нюанс
+              leftDotColor: Color(0xFFE94B35),
+                rightDotColor: Color(0xFFBFAF8F),
                 size: 60,
               )
             : buildForm(),
@@ -84,58 +84,95 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget buildForm() {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.message, size: 60),
-          const SizedBox(height: 50),
-          Text(
-            "Let's create an account for you",
-            style: TextStyle(fontSize: 20, color: Color(0xFFB57873)),
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Image.asset(
+            'assets/wave2.png',
+            fit: BoxFit.cover,
+            width: MediaQuery.of(context).size.width,
           ),
-          const SizedBox(height: 25),
-          MyTextField(
-            hintText: "example@gmail.com",
-            obscuretext: false,
-            controller: _emailController,
+        ),
+
+        Positioned.fill(
+          child: Container(
+            color: Colors.black.withOpacity(0.3), // затемнение по желанию
           ),
-          const SizedBox(height: 10),
-          MyTextField(
-            hintText: "Password..",
-            obscuretext: true,
-            controller: _pwController,
-          ),
-          const SizedBox(height: 10),
-          MyTextField(
-            hintText: "Confirm password..",
-            obscuretext: true,
-            controller: _confirmController,
-          ),
-          const SizedBox(height: 25),
-          MyButton(text: "Register", onTap: register),
-          const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Already have an account? ",
-                style: TextStyle(color: Color(0xFFB57873)),
-              ),
-              GestureDetector(
-                onTap: widget.onTap,
-                child: Text(
-                  "Login now",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFB57873),
+        ),
+        Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/logo_sun.png', width: 250, height: 250),
+                const SizedBox(height: 50),
+                Text(
+                  "Let's create an account for you",
+                  style: TextStyle(fontSize: 20, color: Color(0xFFD3C9A1)),
+                ),
+                const SizedBox(height: 25),
+                MyTextField(
+                  hintText: "example@gmail.com",
+                  obscuretext: false,
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  hintText: "Password..",
+                  obscuretext: true,
+                  controller: _pwController,
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  hintText: "Confirm password..",
+                  obscuretext: true,
+                  controller: _confirmController,
+                ),
+                const SizedBox(height: 25),
+                MyButton(text: "Register", onTap: register),
+                const SizedBox(height: 25),
+                Container(
+                  width: 300,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1A1A4A),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color(
+                        0xFFBFAF8F,
+                      ), // твой красноватый акцентный цвет
+                      width: 1.0, // ширина границы
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: widget.onTap,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already have an account? ",
+                          style: TextStyle(color: Color(0xFFBFAF8F)),
+                        ),
+
+                        Text(
+                          "Login now",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFBFAF8F),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -151,7 +151,7 @@ class _WallPostState extends State<WallPost> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFC0AF99),
+        color: Color.fromARGB(255, 17, 17, 43),
         borderRadius: BorderRadius.circular(8),
       ),
       margin: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
@@ -169,8 +169,9 @@ class _WallPostState extends State<WallPost> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
+                      
                       widget.message,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFBFAF8F)),
                       softWrap: true,
                       overflow: TextOverflow.visible,
                     ),
@@ -180,19 +181,19 @@ class _WallPostState extends State<WallPost> {
                         Text(
                           widget.user,
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 36, 36, 36),
+                            color: Color.fromARGB(255, 141, 129, 105),
                           ),
                         ),
                         Text(
                           " • ",
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 36, 36, 36),
+                            color: Color.fromARGB(255, 141, 129, 105),
                           ),
                         ),
                         Text(
                           widget.time,
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 36, 36, 36),
+                            color: Color.fromARGB(255, 141, 129, 105),
                           ),
                         ),
                       ],
@@ -218,8 +219,8 @@ class _WallPostState extends State<WallPost> {
               if (!snapshot.hasData) {
                 return Center(
                   child: LoadingAnimationWidget.twistingDots(
-                    leftDotColor: Color(0xFFB57873), // насыщенный, уютный
-                    rightDotColor: Color(0xFFCFB4AB), // пастельная нежность
+                      leftDotColor: Color(0xFFE94B35),
+                      rightDotColor: Color(0xFFBFAF8F),
                     size: 60,
                   ),
                 );
@@ -254,7 +255,7 @@ class _WallPostState extends State<WallPost> {
                   SizedBox(height: 5),
                   Text(
                     widget.likes.length.toString(),
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Color(0xFFBFAF8F)),
                   ),
                 ],
               ),
@@ -265,7 +266,7 @@ class _WallPostState extends State<WallPost> {
                   SizedBox(height: 5),
                   Text(
                     "Comment",
-                    style: TextStyle(color: Colors.black, fontSize: 10),
+                    style: TextStyle(color: Color(0xFFBFAF8F), fontSize: 10),
                   ),
                 ],
               ),
