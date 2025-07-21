@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:seimei_social_app/components/chat_buble.dart';
-import 'package:seimei_social_app/components/my_textfield.dart';
-import 'package:seimei_social_app/services/auth/auth_service.dart';
-import 'package:seimei_social_app/services/chat/chat_services.dart';
+import 'package:SEIMEI/components/chat_buble.dart';
+import 'package:SEIMEI/components/my_textfield.dart';
+import 'package:SEIMEI/services/auth/auth_service.dart';
+import 'package:SEIMEI/services/chat/chat_services.dart';
 
 class ChatPage extends StatefulWidget {
   final String recieverEmail;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:seimei_social_app/components/my_drawer.dart';
-import 'package:seimei_social_app/components/user_tile.dart';
-import 'package:seimei_social_app/pages/chat_page.dart';
-import 'package:seimei_social_app/services/auth/auth_service.dart';
-import 'package:seimei_social_app/services/chat/chat_services.dart';
+import 'package:SEIMEI/components/my_drawer.dart';
+import 'package:SEIMEI/components/user_tile.dart';
+import 'package:SEIMEI/pages/chat_page.dart';
+import 'package:SEIMEI/services/auth/auth_service.dart';
+import 'package:SEIMEI/services/chat/chat_services.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

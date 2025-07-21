@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:seimei_social_app/pages/profile_page.dart';
-import 'package:seimei_social_app/pages/wall_page.dart';
-import 'package:seimei_social_app/services/auth/auth_service.dart';
+import 'package:SEIMEI/pages/profile_page.dart';
+import 'package:SEIMEI/pages/wall_page.dart';
+import 'package:SEIMEI/services/auth/auth_service.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
             children: [
               //logo
               DrawerHeader(
-                child: Center(child: Image.asset('../assets/logo.png')),
+                child: Center(child: Image.asset('assets/logo.png')),
               ),
 
               //home list

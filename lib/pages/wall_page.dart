@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:seimei_social_app/components/my_textfield.dart';
-import 'package:seimei_social_app/components/wall_post.dart';
-import 'package:seimei_social_app/helper/helper_methods.dart';
+import 'package:SEIMEI/components/my_textfield.dart';
+import 'package:SEIMEI/components/wall_post.dart';
+import 'package:SEIMEI/helper/helper_methods.dart';
 
 class WallPage extends StatefulWidget {
   WallPage({super.key});

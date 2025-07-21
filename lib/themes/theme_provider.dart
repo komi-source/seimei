@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seimei_social_app/themes/dark_page.dart';
-import 'package:seimei_social_app/themes/light_page.dart';
+import 'package:SEIMEI/themes/dark_page.dart';
+import 'package:SEIMEI/themes/light_page.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeData _themeData = lightMode;

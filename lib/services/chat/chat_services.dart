@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:seimei_social_app/models/message.dart';
+import 'package:SEIMEI/models/message.dart';
 
 class ChatService {
   //get instance of firestore and auth

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:seimei_social_app/services/auth/auth_service.dart';
-import 'package:seimei_social_app/components/my_button.dart';
-import 'package:seimei_social_app/components/my_textfield.dart';
+import 'package:SEIMEI/services/auth/auth_service.dart';
+import 'package:SEIMEI/components/my_button.dart';
+import 'package:SEIMEI/components/my_textfield.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginPage extends StatefulWidget {

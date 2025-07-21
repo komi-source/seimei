@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seimei_social_app/services/auth/auth_gate.dart';
+import 'package:SEIMEI/services/auth/auth_gate.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(Duration(milliseconds: 500), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => AuthGate()),
@@ -21,8 +21,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(child: Image.asset('../assets/logo.png')),
+      backgroundColor: Color(0xFFD7CCAE),
+      body: Center(child: Image.asset('assets/logo.png')),
     );
   }
 }

@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:seimei_social_app/pages/splash_screen.dart';
-import 'package:seimei_social_app/services/auth/auth_gate.dart';
-import 'package:seimei_social_app/firebase_options.dart';
-import 'package:seimei_social_app/themes/theme_provider.dart';
+import 'package:SEIMEI/pages/splash_screen.dart';
+import 'package:SEIMEI/firebase_options.dart';
+import 'package:SEIMEI/themes/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // обязательно до инициализации Firebase

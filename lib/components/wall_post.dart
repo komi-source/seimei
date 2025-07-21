@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:seimei_social_app/components/comment_button.dart';
-import 'package:seimei_social_app/components/comments.dart';
-import 'package:seimei_social_app/components/delete_button.dart';
-import 'package:seimei_social_app/components/like_button.dart';
-import 'package:seimei_social_app/helper/helper_methods.dart';
+import 'package:SEIMEI/components/comment_button.dart';
+import 'package:SEIMEI/components/comments.dart';
+import 'package:SEIMEI/components/delete_button.dart';
+import 'package:SEIMEI/components/like_button.dart';
+import 'package:SEIMEI/helper/helper_methods.dart';
 
 class WallPost extends StatefulWidget {
   final String message;
