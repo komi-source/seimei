@@ -1,3 +1,4 @@
+import 'package:SEIMEI/pages/ai_chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:SEIMEI/pages/profile_page.dart';
 import 'package:SEIMEI/pages/wall_page.dart';
@@ -23,7 +24,7 @@ class MyDrawer extends StatelessWidget {
             left: 0,
             right: 0,
             child: Image.asset(
-              'assets/wave2.png', 
+              'assets/wave2.png',
               fit: BoxFit.fitWidth,
               width: MediaQuery.of(context).size.width,
             ),
@@ -38,7 +39,10 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("HOME", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  title: const Text(
+                    "HOME",
+                    style: TextStyle(color: Color(0xFFBFAF8F)),
+                  ),
                   leading: const Icon(Icons.home, color: Color(0xFFBFAF8F)),
                   onTap: () => Navigator.pop(context),
                 ),
@@ -46,29 +50,61 @@ class MyDrawer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("PROFILE", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  title: const Text(
+                    "PROFILE",
+                    style: TextStyle(color: Color(0xFFBFAF8F)),
+                  ),
                   leading: const Icon(Icons.person, color: Color(0xFFBFAF8F)),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => ProfilePage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ProfilePage()),
+                    );
                   },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("WALL", style: TextStyle(color: Color(0xFFBFAF8F))),
+                  title: const Text(
+                    "WALL",
+                    style: TextStyle(color: Color(0xFFBFAF8F)),
+                  ),
                   leading: const Icon(Icons.note, color: Color(0xFFBFAF8F)),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => WallPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => WallPage()),
+                    );
                   },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 25.0),
                 child: ListTile(
-                  title: const Text("LOGOUT", style: TextStyle(color: Color(0xFFE94B35))),
+                  title: const Text(
+                    "AI CHAT",
+                    style: TextStyle(color: Color(0xFFBFAF8F)),
+                  ),
+                  leading: const Icon(Icons.android, color: Color(0xFFBFAF8F)),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ChatScreen()),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text(
+                    "LOGOUT",
+                    style: TextStyle(color: Color(0xFFE94B35)),
+                  ),
                   leading: const Icon(Icons.logout, color: Color(0xFFE94B35)),
                   onTap: logout,
                 ),

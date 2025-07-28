@@ -78,11 +78,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
 
         // 🌫️ Полупрозрачный слой (опционально, для читаемости)
-        Positioned.fill(
-          child: Container(
-            color: Colors.black.withOpacity(0.3), // затемнение по желанию
-          ),
-        ),
+        Positioned.fill(child: Container(color: Colors.black.withOpacity(0.3))),
 
         // 📋 Контент логина поверх фона
         Center(
@@ -111,37 +107,38 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
                 MyButton(text: "Login", onTap: login),
                 const SizedBox(height: 25),
-                Container(
-                  width: 200,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1A1A4A),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Color(
-                        0xFFBFAF8F,
-                      ), // твой красноватый акцентный цвет
-                      width: 1.0, // ширина границы
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 19.0, left: 80.0, right: 80.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1A1A4A),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color(
+                          0xFFBFAF8F,
+                        ), // твой красноватый акцентный цвет
+                        width: 1.0, // ширина границы
+                      ),
                     ),
-                  ),
-                  child: GestureDetector(
-                    onTap: widget.onTap,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Not a member? ",
-                          style: TextStyle(color: Color(0xFFD3C9A1)),
-                        ),
-
-                        Text(
-                          "Register now",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFD3C9A1),
+                    child: GestureDetector(
+                      onTap: widget.onTap,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Not a member? ",
+                            style: TextStyle(color: Color(0xFFD3C9A1)),
                           ),
-                        ),
-                      ],
+
+                          Text(
+                            "Register",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFD3C9A1),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

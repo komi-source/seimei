@@ -99,7 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
         Positioned.fill(
           child: Container(
-            color: Colors.black.withOpacity(0.3), // затемнение по желанию
+            color: Colors.black.withOpacity(0.3), 
           ),
         ),
         Center(
@@ -134,37 +134,38 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 25),
                 MyButton(text: "Register", onTap: register),
                 const SizedBox(height: 25),
-                Container(
-                  width: 300,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1A1A4A),
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Color(
-                        0xFFBFAF8F,
-                      ), // твой красноватый акцентный цвет
-                      width: 1.0, // ширина границы
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 19.0, left: 80.0, right: 80.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1A1A4A),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color(
+                          0xFFBFAF8F,
+                        ), // твой красноватый акцентный цвет
+                        width: 1.0, // ширина границы
+                      ),
                     ),
-                  ),
-                  child: GestureDetector(
-                    onTap: widget.onTap,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already have an account? ",
-                          style: TextStyle(color: Color(0xFFBFAF8F)),
-                        ),
-
-                        Text(
-                          "Login now",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFBFAF8F),
+                    child: GestureDetector(
+                      onTap: widget.onTap,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account? ",
+                            style: TextStyle(color: Color(0xFFBFAF8F)),
                           ),
-                        ),
-                      ],
+                  
+                          Text(
+                            "Login",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFBFAF8F),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

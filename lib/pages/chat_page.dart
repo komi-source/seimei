@@ -70,6 +70,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: const Color(0xFF1A1A4A),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xFFBFAF8F)),
         backgroundColor: const Color.fromARGB(255, 17, 17, 43),
         title: Text(
           widget.recieverEmail,
@@ -78,19 +79,6 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Stack(
         children: [
-          // 🌊 Фоновое изображение снизу
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/wave2.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-
-          // 📋 Контент чата поверх фона
           Column(
             children: [
               Expanded(child: _buildMessageList()),

@@ -34,24 +34,12 @@ class _WallPageState extends State<WallPage> {
     return Scaffold(
       backgroundColor: Color(0xFF1A1A4A),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xFFBFAF8F)),
         backgroundColor: Color.fromARGB(255, 17, 17, 43),
         title: const Text("Wall", style: TextStyle(color: Color(0xFFBFAF8F))),
       ),
       body: Stack(
         children: [
-          // 🌊 Картинка внизу экрана
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/wave2.png', // замени на свою картинку
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-
-          // 📋 Контент стены поверх фона
           Column(
             children: [
               Expanded(
@@ -114,10 +102,7 @@ class _WallPageState extends State<WallPage> {
                       ),
                       child: IconButton(
                         onPressed: postMessage,
-                        icon: Icon(
-                          Icons.send,
-                          color: Color(0xFFBFAF8F),
-                        ),
+                        icon: Icon(Icons.send, color: Color(0xFFBFAF8F)),
                       ),
                     ),
                   ],

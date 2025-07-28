@@ -9,6 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // обязательно до инициализации Firebase
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  
 
   runApp(
     ChangeNotifierProvider(

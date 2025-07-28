@@ -17,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: Color(0xFF1A1A4A),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xFFBFAF8F)),
         backgroundColor: Color.fromARGB(255, 17, 17, 43),
         title: Text("Profile", style: TextStyle(color: Color(0xFFD3C9A1))),
       ),

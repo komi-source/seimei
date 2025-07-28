@@ -19,6 +19,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF1A1A4A),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Color(0xFFBFAF8F)),
         backgroundColor: Color.fromARGB(255, 17, 17, 43),
         elevation: 0,
         title: const Text(
@@ -29,24 +30,7 @@ class HomePage extends StatelessWidget {
       drawer: MyDrawer(),
 
       // 🎨 Слой с фоном + списком
-      body: Stack(
-        children: [
-          // 🌊 Волна внизу экрана
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Image.asset(
-              'assets/wave.png',
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-
-          // 📋 Список пользователей
-          _buildUserList(context),
-        ],
-      ),
+      body: Stack(children: [_buildUserList(context)]),
     );
   }
 
@@ -57,7 +41,7 @@ class HomePage extends StatelessWidget {
         if (snapshot.hasError) {
           return const Center(
             child: Text(
-              "Ошибка загрузки пользователей",
+              "User list error",
               style: TextStyle(color: Colors.white),
             ),
           );
